@@ -1,0 +1,48 @@
+//console.log("HTML loaded");
+    
+    // Get Canvas element and Context
+    g_Canvas = document.getElementById("myCanvas");
+    if (!g_Canvas) return;
+    g_Ctx = g_Canvas.getContext("2d");
+    if (!g_Ctx) return;   
+    
+    // Add event handlers (The onevent="func()" attributes work incorrectly
+    // in Firefox [event objects aren't passed])
+    // Also, older IE versions might need .attachEvent()
+    g_Canvas.addEventListener("mousedown", MouseDownCanv, false);
+    g_Canvas.addEventListener("mouseup", MouseUpCanv, false);
+    g_Canvas.addEventListener("contextmenu", OnCanvCtxMenu, false);
+    
+    // Example Drawing: Gradient:    
+    var Grad = g_Ctx.createLinearGradient(0,0,0,60);
+    if (Grad)
+    {
+        Grad.addColorStop(0, "red");
+        Grad.addColorStop(1, "blue");
+        g_Ctx.fillStyle = Grad;
+    }
+    g_Ctx.fillRect(0,0,419,60);
+     
+    // Example Drawing: Text
+    g_Ctx.font = "30px serif";
+    g_Ctx.fillStyle = "white";
+    g_Ctx.textBaseline = "top";
+    g_Ctx.fillText("HTML5 Canvas Drawing!", 50, 10);
+    
+    // Example Drawing: Circle, Line
+    g_Ctx.beginPath();
+    g_Ctx.arc(200, 100, 20, 0, Math.PI * 2);
+    g_Ctx.fillStyle = "red";
+    g_Ctx.fill();
+
+    g_Ctx.beginPath();
+    g_Ctx.lineWidth = "3";
+    g_Ctx.strokeStyle = "green";
+    g_Ctx.moveTo(185, 85);
+    g_Ctx.lineTo(215, 115);
+    g_Ctx.stroke();
+    
+    // End main [event handlers will continue to run]
+}
+
+window.onload = main;
